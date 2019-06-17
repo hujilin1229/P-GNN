@@ -203,7 +203,12 @@ def get_dist_max(anchorset_id, dist, device):
         dist_temp = dist[:, temp_id]
         dist_max_temp, dist_argmax_temp = torch.max(dist_temp, dim=-1)
         dist_max[:,i] = dist_max_temp
-        dist_argmax[:,i] = dist_argmax_temp
+        # Original dist_argmax which seems have some problem
+        # dist_argmax[:,i] = dist_argmax_temp
+
+        temp_id_ts = torch.LongTensor(temp_id).unsqueeze(0).repeat(dist.shape[0], 1).to(device)
+        dist_argmax[:, i] = temp_id_ts.gather(1, dist_argmax_temp.view(-1, 1)).squeeze()
+
     return dist_max, dist_argmax
 
 

@@ -39,6 +39,7 @@ def get_tg_dataset(args, dataset_name, use_cache=True, remove_feature=False):
 
     # precompute shortest path
     if not os.path.isdir('datasets/cache'):
+        os.mkdir('datasets')
         os.mkdir('datasets/cache')
     f1_name = 'datasets/cache/' + dataset_name + str(args.approximate) + '_dists.dat'
     f2_name = 'datasets/cache/' + dataset_name + str(args.approximate)+ '_dists_removed.dat'
